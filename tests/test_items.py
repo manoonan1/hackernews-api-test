@@ -181,7 +181,7 @@ def test_nested_comment_eventually_reaches_story(client):
 @pytest.mark.story
 @pytest.mark.edge_case
 def test_text_story_has_text_field(client):
-    """Text story (Ask HN, Show HN) has text field instead of url."""
+    """Text story has text field instead of url."""
     items = ItemsAPI(client)
     story = items.get_item(TEXT_STORY_ID)
 
