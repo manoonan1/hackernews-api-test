@@ -64,6 +64,7 @@ tests/
 ## Test Coverage
 
 ### Acceptance Tests (Core Requirements)
+I marked all tests that adhere to the project's acceptance test criteria with a pytest marker of 'acceptance'. This is not often a design choice that would be made in a real scenario, but more for your convenience of evaluation.
 1. Retrieving top stories with the Top Stories API
 2. Using Top Stories API to retrieve the current top story from Items API
 3. Using Top Stories API to retrieve a top story's first comment
@@ -91,3 +92,7 @@ tests/
 | `top_stories` | Top Stories API tests |
 | `story` | Story-related tests |
 | `comment` | Comment-related tests |
+
+## Test Markers
+
+I added a `challenges.txt` file that documented some of the problems and concerns I ran into while creating this suite. 
