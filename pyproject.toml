@@ -1,0 +1,21 @@
+[project]
+name = "hackernews-api-test"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+  "pytest>=8.0.0",
+  "requests>=2.31.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+markers = [
+    "items: Items API tests",
+    "top_stories: Top Stories API tests",
+    "story: Story-related tests",
+    "comment: Comment-related tests",
+    "security: Security tests",
+    "edge_case: Edge case tests",
+    "acceptance: Core requirement tests",
+]

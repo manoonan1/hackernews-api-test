@@ -1,0 +1,43 @@
+Challenges encountered during HackerNews API test suite development:
+
+1. Top Stories can contain jobs
+   - The /topstories endpoint returns "up to 500 top and new stories (also contains jobs)"
+   - Cannot assume stories[0] is a story - it could be a job
+   - Solution: Iterate through top stories to find first item with type "story"
+
+2. Stories may not have comments
+   - A story can reach top stories before receiving any comments
+   - The "kids" field may be missing or empty
+   - Solution: Separate method to find first story that has comments
+   - Trade-off: Could merge into single method to prevent flaky tests, but kept separate for clarity
+
+3. Determining "first" comment
+   - "First comment" is ambiguous - chronological first or first in list?
+   - HN's kids array is ordered by ranking (score), not chronologically
+   - Decision: Used kids[0] as "first" since requirements didn't specify chronological
+
+4. Client architecture
+   - Initial design mixed HTTP concerns with business logic
+   - Solution: Separated into layers:
+     - client.py: Low-level HTTP client (returns Response objects)
+     - top_stories.py: Higher-level TopStoriesAPI class
+     - items.py: Higher-level ItemsAPI class
+   - Benefits: Testable, clear separation of concerns, reusable
+
+5. Non-existent items return 200 with null
+   - Requesting a non-existent item ID returns HTTP 200 with null body
+   - Standard REST would return 404 Not Found for a missing resource
+
+6. Invalid paths return 401 "Permission denied"
+   - Empty item ID (/item/.json) returns 401, not 404
+   - Invalid endpoints (/items.json instead of /item/{id}.json) return 401
+   - Firebase uses "Permission denied" for non-existent paths, not just auth issues
+
+7. HTTP connections rejected
+   - API only supports HTTPS, not HTTP
+   - HTTP requests get connection reset (no response)
+   - No graceful redirect to HTTPS - connection just drops
+
+8. An enhancement of a API Spec test would be nice
+   - Time would not permit and implementation, and they don't provide much of a spec
+   - I would be making too many assumptions about the response
