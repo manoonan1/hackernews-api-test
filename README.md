@@ -72,7 +72,7 @@ tests/
 - Invalid item IDs (0, negative, non-existent, text)
 - Deleted comments
 - Nested comments
-- Text stories (Ask HN, Show HN)
+- Text stories
 - Max 500 top stories
 
 ### Security Tests
